@@ -1,4 +1,4 @@
-import { BadRequestException, Body, Controller, Delete, Get, NotFoundException, Param, Post, Put } from "@nestjs/common";
+import { BadRequestException, Body, Controller, Delete, Get, HttpException, HttpStatus, NotFoundException, Param, Post, Put } from "@nestjs/common";
 import { CharacterService } from "./character.service";
 import { Character } from "@prisma/client";
 import { CreateCharacterDTO } from "./dtoCharacter/create-character.dto";
@@ -45,14 +45,26 @@ export class CharacterController  {
         }
 
         const deleteResult = await this.characterService.deleteCharacter(numericId)
-        if(!deleteResult) throw new NotFoundException('TaskNotFound')
-        return { message: 'Task successfully deleted', deleted: deleteResult };
+        if(!deleteResult) {
+            throw new HttpException(
+                { message: 'Lo siento, no puedes eliminarlo si quieres el proyecto ve a mi github mallquidev' },
+                HttpStatus.METHOD_NOT_ALLOWED,
+            );
+        }
         
     }
 
-    @Put(':id')
+    /* @Put(':id')
     async updateCharacter(@Param('id')id: string, @Body() data: UpdateCharacterDTO){
         return this.characterService.updateCharacter(Number(id), data)
+    }
+    */
+    @Put(':id')
+    async updateCharacter(@Param('id')id: string, @Body() data: UpdateCharacterDTO){
+        throw new HttpException(
+            { message: 'Lo siento, no puedes eliminarlo si quieres el proyecto ve a mi github mallquidev' },
+            HttpStatus.METHOD_NOT_ALLOWED,
+        );
     }
 
 }

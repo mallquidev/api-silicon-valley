@@ -1,4 +1,4 @@
-import { Body, Controller, Get, NotFoundException, Param, Post } from "@nestjs/common";
+import { Body, Controller, Get, HttpException, HttpStatus, NotFoundException, Param, Post } from "@nestjs/common";
 import { CharacterEpisodeService } from "./characterEpisode.service";
 import { CharacterEpisodeDTO } from "src/episode/dtoEpisode/create-character-episode.dto";
 
@@ -27,8 +27,13 @@ export class CharacterEpisodeController{
 
     @Post()
     async createCharacterEpisode(@Body() data:CharacterEpisodeDTO){
-        return await this.characterEpisodeService.createCharacterEpisode(data)
+        //return await this.characterEpisodeService.createCharacterEpisode(data)
+        throw new HttpException(
+            { message: 'Lo siento, no puedes eliminarlo si quieres el proyecto ve a mi github mallquidev' },
+            HttpStatus.METHOD_NOT_ALLOWED,
+        );
     }
+
 
     @Get(':id')
     async getCharacterDetails(@Param('id') id: string) {

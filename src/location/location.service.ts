@@ -23,4 +23,8 @@ export class LocationService{
         })
     }
 
+    async deleteLocation(id: number):Promise<boolean>{
+        return false
+    }
+
 }

@@ -44,7 +44,7 @@ export class CharacterService  {
     }
 
     async deleteCharacter(id: number): Promise<boolean> {
-        try {
+        /* try {
             await this.prisma.character.delete({
               where: { id },
             });
@@ -52,7 +52,8 @@ export class CharacterService  {
             return true;
         }catch (error) {
             return false;
-        }
+        } */
+       return false;
     }
 
 

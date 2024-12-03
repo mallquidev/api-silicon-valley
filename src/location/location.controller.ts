@@ -1,4 +1,4 @@
-import { Body, Controller, Get, NotFoundException, Post } from "@nestjs/common";
+import { BadRequestException, Body, Controller, Delete, Get, HttpException, HttpStatus, NotFoundException, Param, Post } from "@nestjs/common";
 import { LocationService } from "./location.service";
 import { CreateLocationDto } from "./dtoLocation/create-location.dto";
 
@@ -19,5 +19,20 @@ export class LocationController{
     @Post()
     async createLocation(@Body() data: CreateLocationDto){
         return await this.locationService.createLocation(data)
+    }
+
+    @Delete(':id')
+    async deleteLocation(@Param('id') id:string){
+        const numericId = Number(id);
+        if(isNaN(numericId)){
+            throw new BadRequestException('Invalid Character ID FORMAT')
+        }
+        const locationClear = await this.locationService.deleteLocation(numericId)
+        if(!locationClear){
+            throw new HttpException(
+                { message: 'Lo siento, no puedes eliminarlo si quieres el proyecto ve a mi github mallquidev' },
+                HttpStatus.METHOD_NOT_ALLOWED,
+            );
+        }
     }
 }
