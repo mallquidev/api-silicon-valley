@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post } from "@nestjs/common";
+import { Body, Controller, Get, HttpException, HttpStatus, Post } from "@nestjs/common";
 import { EpisodeService } from "./episode.service";
 import { CreateEpisodeDTO } from "./dtoEpisode/create-episode.dto";
 
@@ -13,6 +13,10 @@ export class EpisodeController{
 
     @Post()
     async createEpisode(@Body() data:CreateEpisodeDTO){
-        return await this.episodeService.createEpisode(data)
+        //return await this.episodeService.createEpisode(data)
+        throw new HttpException(
+            { message: 'Lo siento, no puedes eliminarlo si quieres el proyecto ve a mi github mallquidev' },
+            HttpStatus.METHOD_NOT_ALLOWED,
+        );
     }
 }
