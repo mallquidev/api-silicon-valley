@@ -34,7 +34,11 @@ export class CharacterController  {
 
     @Post()
     async createCharacter(@Body() data: CreateCharacterDTO){
-        return await this.characterService.createCharacter(data)
+        //return await this.characterService.createCharacter(data)
+        throw new HttpException(
+            { message: 'Lo siento, no puedes eliminarlo si quieres el proyecto ve a mi github mallquidev' },
+            HttpStatus.METHOD_NOT_ALLOWED,
+        );
     }
 
     @Delete(':id')
